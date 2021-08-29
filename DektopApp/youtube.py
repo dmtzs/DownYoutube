@@ -5,99 +5,103 @@ from pytube import YouTube
 from tkinter import ttk
 from tkinter import filedialog
 
-Folder_Name = ""
+folderName= ""
 
 def commandSOShell():
     sistema= platform.system()
 
     if sistema== "Windows":
-        return "clear"
+        return "cls", sistema
     else:
-        return "clear"
+        return "clear", sistema
 
-#file location
-def openLocation():
-    global Folder_Name
-    Folder_Name = filedialog.askdirectory()
-    if (len(Folder_Name) > 1):
-        locationError.config(text=Folder_Name,fg="green")
+def abrirRuta():
+    global folderName
 
+    folderName= filedialog.askdirectory()
+    if len(folderName) > 1:
+        rutaError.config(text= folderName, fg= "green")
     else:
-        locationError.config(text="Please Choose Folder!!",fg="red")
+        rutaError.config(text= "Por favor elije una ruta", fg= "red")
 
-#donwload video
-def DownloadVideo():
-    choice = ytdchoices.get()
-    url = ytdEntry.get()
+def DescargarVideo():
+    eleccion= ytElec.get()
+    url= ytEntry.get()
 
-    if len(url)>1:
-        ytdError.config(text="")
-        yt = YouTube(url)
+    if len(url) > 1:
+        ytError.config(text= "")
+        yt= YouTube(url)
 
-        if choice == choices[0]:
-            select = yt.streams.get_highest_resolution()
-
-        elif choice == choices[1]:
-            select = yt.streams.filter(progressive=True, file_extension='mp4').first()
-
-        elif(choice == choices[2]):
-            select = yt.streams.filter(only_audio=True).first()
-
+        if eleccion== elec[0]:
+            video= yt.streams.get_highest_resolution()
+        elif eleccion== elec[1]:
+            video= yt.streams.get_lowest_resolution()
+        elif eleccion== elec[2]:
+            video= yt.streams.filter(only_audio= True).first()
         else:
-            ytdError.config(text="Paste Link again!!",fg="red")
+            ytError.config(text= "Pon el enlace de nuevo del video", fg= "red")
 
+    video.download(folderName)
+    ytError.config(text= "Descarga completada", fg= "green")
 
-    #download function
-    select.download(Folder_Name)
-    ytdError.config(text="Download Completed!!")
+raiz= tk.Tk()
+comando, sis= commandSOShell()
+os.system(comando)
+raiz.title("Descargar videos youtube")
+raiz.columnconfigure(0, weight= 1)
+raiz.resizable(width= False, height= False)
+screenWidth = raiz.winfo_screenwidth()# Ancho del área de visualización
+screenHeight = raiz.winfo_screenheight()# Alto del área de visualización
+if sis== "Windows":
+    width= 400
+    height= 450
+else:
+    width= 1000
+    height= 1050
+left = (screenWidth - width) / 2
+top = (screenHeight - height) / 2
+raiz.geometry(f"{int(width)}x{int(height)}+{int(left)}+{int(top)}")
 
+# Label de enlace youtube
+ytdlabel= tk.Label(raiz, text= "Ingresa la URL del video", font= ("jost", 15))
+ytdlabel.grid()
 
+# Caja de entrada de texto
+ytEntryText= tk.StringVar()
+ytEntry= tk.Entry(raiz, width= 50, textvariable= ytEntryText)
+ytEntry.grid()
 
-root = tk.Tk()
-os.system(commandSOShell())
-root.title("YouTube Downloader")
-root.geometry("400x450") #set window
-root.columnconfigure(0,weight=1)#set all content in center.
+# Error mensaje
+ytError= tk.Label(raiz, text= "Error", fg= "red", font= ("jost", 15))
+ytError.grid()
 
-#Ytd Link Label
-ytdLabel = tk.Label(root,text="Enter the URL of the Video",font=("jost",15))
-ytdLabel.grid()
-
-#Entry Box
-ytdEntryVar = tk.StringVar()
-ytdEntry = tk.Entry(root,width=50,textvariable=ytdEntryVar)
-ytdEntry.grid()
-
-#Error Msg
-ytdError = tk.Label(root,text="Error Msg",fg="red",font=("jost",10))
-ytdError.grid()
-
-#Asking save file label
-saveLabel = tk.Label(root,text="Save the Video File",font=("jost",15,"bold"))
+# Etiqueta de solicitación de ruta donde guardar archivo.
+saveLabel= tk.Label(raiz, text= "Guarda el video", font= ("jost", 15))
 saveLabel.grid()
 
-#btn of save file
-saveEntry = tk.Button(root,width=10,bg="red",fg="white",text="Choose Path",command=openLocation)
+# Botón para guardar archivo
+saveEntry= tk.Button(raiz, width= 10, bg= "red", fg= "white", text= "Ruta", command= abrirRuta)
 saveEntry.grid()
 
-#Error Msg location
-locationError = tk.Label(root,text="Error Msg of Path",fg="red",font=("jost",10))
-locationError.grid()
+# Error de ruta
+rutaError= tk.Label(raiz, text= "Error en la ruta", fg= "red", font= ("jost", 15))
+rutaError.grid()
 
-#Download Quality
-ytdQuality = tk.Label(root,text="Select Quality",font=("jost",15))
-ytdQuality.grid()
+# Resolución de descarga
+ytRes= tk.Label(raiz, text= "Selecciona calidad", font= ("jost", 15))
+ytRes.grid()
 
-#combobox
-choices = ["High quality", "Low quality", "Only Audio"]
-ytdchoices = ttk.Combobox(root,values=choices)
-ytdchoices.grid()
+# Combobox de opciones
+elec= ["Alta definición", "Baja definición", "Solo audio"]
+ytElec= ttk.Combobox(raiz, values= elec, state= "readonly")
+ytElec.grid()
 
-#donwload btn
-downloadbtn = tk.Button(root,text="Donwload",width=10,bg="red",fg="white",command=DownloadVideo)
-downloadbtn.grid()
+# Botón descargar video/audio
+downBot= tk.Button(raiz, text= "Descargar", width= 10, bg= "red", fg= "white", command= DescargarVideo)
+downBot.grid()
 
-#developer Label
-developerlabel = tk.Label(root,text="Diego Martínez Sánchez",font=("jost",15))
-developerlabel.grid()
-root.mainloop()
+# Cadena marca desarrollador
+devLabel= tk.Label(raiz, text= "Diego", font= ("jost", 15))
+devLabel.grid()
+
+raiz.mainloop()
