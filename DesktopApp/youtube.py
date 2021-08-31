@@ -5,7 +5,7 @@ try:
     from pytube import YouTube
     from tkinter import ttk
     from tkinter import filedialog
-except Exception as eImp:
+except ImportError as eImp:
     print(f"Ocurrió el siguiente error de importación: {eImp}")
 
 folderName= ""
