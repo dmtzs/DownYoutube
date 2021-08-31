@@ -1,9 +1,12 @@
-import os
-import platform
-import tkinter as tk
-from pytube import YouTube
-from tkinter import ttk
-from tkinter import filedialog
+try:
+    import os
+    import platform
+    import tkinter as tk
+    from pytube import YouTube
+    from tkinter import ttk
+    from tkinter import filedialog
+except Exception as eImp:
+    print(f"Ocurrió el siguiente error de importación: {eImp}")
 
 folderName= ""
 
