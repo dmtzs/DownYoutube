@@ -14,4 +14,4 @@ pyinstaller --noconfirm --onefile --windowed --name "ytDownloader" --icon "D:/Yo
 This application will be developed with the time and will be hosted with the time too so you will be able to access to the web application as a normal 
 web application through your internet browser of your preferences and will have the same functionality.
 
-# More content to the README will be uploaded to its time.
+# More content to the README will be uploaded from september 8 and further.
