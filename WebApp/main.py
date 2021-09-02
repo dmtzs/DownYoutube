@@ -1,6 +1,6 @@
 try:
     from flask import Flask
-except Exception as eImp:
+except ImportError as eImp:
     print(f"The following import error ocurred: {eImp}")
 
 app = Flask(__name__)
