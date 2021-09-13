@@ -18,6 +18,23 @@ def commandSOShell():
     else:
         return "clear", sistema
 
+def cambiarLabelTrue(*args):
+    url= ytEntry.get()
+
+    if url!= "" and (("https://" in url) or ("http://" in url)):
+        texto= "URL ingresada"
+        color= "green"
+
+    elif ((("https://" not in url) or ("http://" not in url)) and url!= ""):
+        texto= "Ingresa una URL de video válida"
+        color= "red"
+    
+    elif url== "":
+        texto= "Ingresa URL de video"
+        color= "red"
+    
+    return ytError.config(text= texto, fg= color, font= ("jost", 15))
+
 def abrirRuta():
     global folderName
 
@@ -74,9 +91,10 @@ ytdlabel.grid()
 ytEntryText= tk.StringVar()
 ytEntry= tk.Entry(raiz, width= 50, textvariable= ytEntryText)
 ytEntry.grid()
+ytEntryText.trace_add("write", cambiarLabelTrue)
 
 # Error mensaje
-ytError= tk.Label(raiz, text= "Error", fg= "red", font= ("jost", 15))
+ytError= tk.Label(raiz, text= "Ingresa ruta", fg= "red", font= ("jost", 15))
 ytError.grid()
 
 # Etiqueta de solicitación de ruta donde guardar archivo.
@@ -88,7 +106,7 @@ saveEntry= tk.Button(raiz, width= 10, bg= "red", fg= "white", text= "Ruta", comm
 saveEntry.grid()
 
 # Error de ruta
-rutaError= tk.Label(raiz, text= "Error en la ruta", fg= "red", font= ("jost", 15))
+rutaError= tk.Label(raiz, text= "Selecciona una ruta", fg= "red", font= ("jost", 15))
 rutaError.grid()
 
 # Resolución de descarga
