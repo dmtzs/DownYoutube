@@ -1,7 +1,9 @@
 try:
     import os
+    import time
     import platform
     import tkinter as tk
+    import moviepy.editor as mp
     from pytube import YouTube
     from tkinter import ttk
     from tkinter import filedialog
@@ -9,6 +11,7 @@ except ImportError as eImp:
     print(f"Ocurrió el siguiente error de importación: {eImp}")
 
 folderName= ""
+fileName= ""
 
 def commandSOShell():
     sistema= platform.system()
@@ -45,6 +48,7 @@ def abrirRuta():
         rutaError.config(text= "Por favor elije una ruta", fg= "red")
 
 def DescargarVideo():
+    global fileName
     eleccion= ytElec.get()
     url= ytEntry.get()
 
@@ -52,17 +56,44 @@ def DescargarVideo():
         ytError.config(text= "")
         yt= YouTube(url)
 
-        if eleccion== elec[0]:
+        if eleccion== elec[0] or eleccion== elec[2]:
             video= yt.streams.get_highest_resolution()
         elif eleccion== elec[1]:
             video= yt.streams.get_lowest_resolution()
-        elif eleccion== elec[2]:
-            video= yt.streams.filter(only_audio= True).first()
+        # elif eleccion== elec[2]:
+            # video= yt.streams.filter(only_audio= True).first()
         else:
             ytError.config(text= "Pon el enlace de nuevo del video", fg= "red")
 
     video.download(folderName)
+    fileName= yt.streams[0].title
+    
+    if eleccion== elec[2]:
+        newFolderNameIn= VideoAudioConverter()
+        time.sleep(10)
+        os.remove(newFolderNameIn)
+
     ytError.config(text= "Descarga completada", fg= "green")
+
+def VideoAudioConverter():
+    global folderName, fileName
+
+    expresiones= [f"{chr(92)}", "/", ":", "*", "?", f"{chr(34)}", "<", ">", f"{chr(124)}"]
+
+    for exp in expresiones:
+        if exp in fileName:
+            fileName= fileName.replace(exp, "")
+
+    lenFolderName= len(folderName)
+    folderNamePasrsedInput= folderName.replace("/", chr(92), lenFolderName+1)
+    newFolderNameIn= f"{folderNamePasrsedInput}{chr(92)}{fileName}.mp4"
+    newFolderNameOut= f"{folderNamePasrsedInput}{chr(92)}{fileName}.mp3"
+
+    video= mp.VideoFileClip(newFolderNameIn)
+    video.audio.write_audiofile(newFolderNameOut)
+    video.close()
+
+    return newFolderNameIn
 
 raiz= tk.Tk()
 comando, sis= commandSOShell()
