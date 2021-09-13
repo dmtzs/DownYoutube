@@ -20,17 +20,17 @@ def commandSOShell():
 
 def cambiarLabelTrue(*args):
     url= ytEntry.get()
-
-    if url!= "" and (("https://" in url) or ("http://" in url)):
-        texto= "URL ingresada"
-        color= "green"
-
-    elif ((("https://" not in url) or ("http://" not in url)) and url!= ""):
-        texto= "Ingresa una URL de video válida"
-        color= "red"
     
+    if url!= "" and "https://www.youtube.com/" in url:
+        texto= "URL ingresada con éxito"
+        color= "green"
+    
+    elif (("https://www.youtube.com/" not in url) and url!= ""):
+        texto= "Ingresa una URL válida"
+        color= "red"
+
     elif url== "":
-        texto= "Ingresa URL de video"
+        texto= "Ingresa la URL del video"
         color= "red"
     
     return ytError.config(text= texto, fg= color, font= ("jost", 15))
@@ -106,7 +106,7 @@ saveEntry= tk.Button(raiz, width= 10, bg= "red", fg= "white", text= "Ruta", comm
 saveEntry.grid()
 
 # Error de ruta
-rutaError= tk.Label(raiz, text= "Selecciona una ruta", fg= "red", font= ("jost", 15))
+rutaError= tk.Label(raiz, text= "Error en la ruta", fg= "red", font= ("jost", 15))
 rutaError.grid()
 
 # Resolución de descarga
