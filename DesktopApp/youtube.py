@@ -76,20 +76,22 @@ def DescargarVideo():
     
     if eleccion== elec[2]:
         newFolderNameIn= VideoAudioConverter()
-        time.sleep(10)
+        time.sleep(2)
+        print(newFolderNameIn)
         os.remove(newFolderNameIn)
 
     ytError.config(text= "Descarga completada", fg= "green")
 
 def VideoAudioConverter():
     global folderName, fileName
+    print(folderName)
 
     expresiones= [f"{chr(92)}", "/", ":", "*", "?", f"{chr(34)}", "<", ">", f"{chr(124)}"]
 
     for exp in expresiones:
         if exp in fileName:
             fileName= fileName.replace(exp, "")
-
+    print(fileName)
     lenFolderName= len(folderName)
     folderNamePasrsedInput= folderName.replace("/", chr(92), lenFolderName+1)
     newFolderNameIn= f"{folderNamePasrsedInput}{chr(92)}{fileName}.mp4"
