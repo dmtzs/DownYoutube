@@ -1,6 +1,8 @@
 try:
     import os
+    os.environ["IMAGEIO_FFMPEG_EXE"]= "/usr/bin/ffmpeg"
     import time
+    import sys
     import platform
     import tkinter as tk
     import moviepy.editor as mp
@@ -12,6 +14,10 @@ except ImportError as eImp:
 
 folderName= ""
 fileName= ""
+
+def resource_path(relative_path):
+    base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
+    return os.path.join(base_path, relative_path)
 
 def commandSOShell():
     sistema= platform.system()
@@ -101,7 +107,8 @@ os.system(comando)
 raiz.title("Descargar videos youtube")
 raiz.columnconfigure(0, weight= 1)
 raiz.resizable(width= False, height= False)
-raiz.iconbitmap("./descargaryt.ico")
+iconImage= resource_path("descargaryt.ico")
+raiz.iconbitmap(iconImage)
 screenWidth = raiz.winfo_screenwidth()# Ancho del área de visualización
 screenHeight = raiz.winfo_screenheight()# Alto del área de visualización
 if sis== "Windows":
