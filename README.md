@@ -83,6 +83,7 @@ from moviepy.video.fx import supersample
 from moviepy.video.fx import time_mirror
 from moviepy.video.fx import time_symmetrize
 ```
+All the settings shown above will not affect the normal operation of the moviepy library.
 
 ## Web application
 This application will be developed with the time and will be hosted with the time too so you will be able to access to the web application as a normal 
