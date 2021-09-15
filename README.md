@@ -1,7 +1,7 @@
 # Youtube videos and audio downloader
 This projects is going to be divided in two parts. A web application and a desktop application.
 
-## Dekstop application
+## Desktop application
 The desktop application will be developed with tkinter, so you can download the application in the part of releases ready to be executed in your 
 computer without the neccesity to download python. You just need to download the exe file and its going to be ready to be downloaded.
 <br>
@@ -13,17 +13,19 @@ pyinstaller --noconfirm --onefile --windowed --add-data "D:/DownYoutube/DesktopA
 If we want to create the executable file we will need to change some files directly in the same library of moviepy.
 <br>
 We will need to go to the path in which the library is, in my case is in the next paths:
-- C:\Users\Diego\AppData\Local\Programs\Python\Python39\Lib\site-packages\moviepy\audio\fx\all\__init.py__
-- C:\Users\Diego\AppData\Local\Programs\Python\Python39\Lib\site-packages\moviepy\video\fx\all\__init.py__
+
+* C:\Users\Diego\AppData\Local\Programs\Python\Python39\Lib\site-packages\moviepy\audio\fx\all\__init.py__
+* C:\Users\Diego\AppData\Local\Programs\Python\Python39\Lib\site-packages\moviepy\video\fx\all\__init.py__
+
 Then we need to paste the next code in the __init__.py file of the audio:
 
 ```python
-import pkgutil
+#import pkgutil
 
 import moviepy.audio.fx as fx
 
-__all__ = [name for _, name, _ in pkgutil.iter_modules(
-    fx.__path__) if name != "all"]
+#__all__ = [name for _, name, _ in pkgutil.iter_modules(
+    #fx.__path__) if name != "all"]
 
 #for name in __all__:
     #exec("from ..%s import %s" % (name, name))
@@ -39,12 +41,12 @@ from moviepy.audio.fx import volumex
 An then we need to paste the next code in the __init__.py file of the video:
 
 ```python
-import pkgutil
+#import pkgutil
 
 import moviepy.video.fx as fx
 
-__all__ = [name for _, name, _ in pkgutil.iter_modules(
-    fx.__path__) if name != "all"]
+#__all__ = [name for _, name, _ in pkgutil.iter_modules(
+    #fx.__path__) if name != "all"]
 
 #for name in __all__:
     #exec("from ..%s import %s" % (name, name))
