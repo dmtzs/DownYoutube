@@ -7,7 +7,7 @@ computer without the neccesity to download python. You just need to download the
 <br>
 The command in order to create the exe file with pyinstaller is:
 ```
-pyinstaller --noconfirm --onefile --windowed --add-data "D:/DownYoutube/DesktopApp/descargaryt.ico;." --name "ytDownloader" --icon "./descargaryt.ico" "./youtube.py"
+pyinstaller --noconfirm --onefile --windowed --add-data "C:/Users/Diego/AppData/Local/Programs/Python/Python38-32/Lib/site-packages/moviepy;moviepy/" --add-data "./descargaryt.ico;." --name "ytDownloader" --icon "./descargaryt.ico" "./youtube.py"
 ```
 <br>
 If we want to create the executable file we will need to change some files directly in the same library of moviepy.
