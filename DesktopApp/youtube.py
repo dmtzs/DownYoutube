@@ -161,8 +161,4 @@ ytElec.grid()
 downBot= tk.Button(raiz, text= "Descargar", width= 10, bg= "red", fg= "white", command= DescargarVideo)
 downBot.grid()
 
-# Cadena marca desarrollador
-devLabel= tk.Label(raiz, text= "Diego", font= ("jost", 15))
-devLabel.grid()
-
 raiz.mainloop()
