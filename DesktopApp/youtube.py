@@ -1,6 +1,6 @@
 try:
     import os
-    os.environ["IMAGEIO_FFMPEG_EXE"]= "/usr/bin/ffmpeg"
+    #os.environ["IMAGEIO_FFMPEG_EXE"]= "/usr/bin/ffmpeg"
     import time
     import sys
     import platform
@@ -53,6 +53,7 @@ def cambiarLabelTrue(*args):
         banderas[0]= 0
 
     desbloqBoton()
+    completeLabel.config(text= "")
     
     return ytError.config(text= texto, fg= color, font= ("jost", 15))
 
@@ -68,8 +69,9 @@ def abrirRuta():
         texto= "Por favor elije una ruta"
         color= "red"
         banderas[1]= 0
-
+    
     desbloqBoton()
+    completeLabel.config(text= "")
     rutaError.config(text= texto, fg= color)
 
 def DescargarVideo():
