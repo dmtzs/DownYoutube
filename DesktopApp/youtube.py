@@ -130,6 +130,7 @@ ytdlabel.grid()
 ytEntryText= tk.StringVar()
 ytEntry= tk.Entry(raiz, width= 50, textvariable= ytEntryText)
 ytEntry.grid()
+ytEntry.focus()
 ytEntryText.trace_add("write", cambiarLabelTrue)
 
 # Error mensaje
@@ -141,7 +142,7 @@ saveLabel= tk.Label(raiz, text= "Guarda el video", font= ("jost", 15))
 saveLabel.grid()
 
 # Botón para guardar archivo
-saveEntry= tk.Button(raiz, width= 10, bg= "red", fg= "white", text= "Ruta", command= abrirRuta)
+saveEntry= tk.Button(raiz, width= 10, bg= "red", fg= "white", text= "Ruta", takefocus= False, command= abrirRuta)
 saveEntry.grid()
 
 # Error de ruta
@@ -154,11 +155,13 @@ ytRes.grid()
 
 # Combobox de opciones
 elec= ["Alta definición", "Baja definición", "Solo audio"]
-ytElec= ttk.Combobox(raiz, values= elec, state= "readonly")
+valElec= tk.StringVar()
+valElec.set(elec[0])
+ytElec= ttk.Combobox(raiz, values= elec, state= "readonly", textvariable= valElec)
 ytElec.grid()
 
 # Botón descargar video/audio
-downBot= tk.Button(raiz, text= "Descargar", width= 10, bg= "red", fg= "white", command= DescargarVideo)
+downBot= tk.Button(raiz, text= "Descargar", width= 10, bg= "#C8C1BF", fg= "white", state= "disabled", takefocus= False, command= DescargarVideo)
 downBot.grid()
 
 raiz.mainloop()
