@@ -1,6 +1,6 @@
 try:
     import os
-    #os.environ["IMAGEIO_FFMPEG_EXE"]= "/usr/bin/ffmpeg"
+    os.environ["IMAGEIO_FFMPEG_EXE"]= "/usr/bin/ffmpeg"
     import time
     import sys
     import platform
@@ -38,7 +38,7 @@ def cambiarLabelTrue(*args):
     url= ytEntry.get()
     
     if url!= "" and "https://www.youtube.com/" in url:
-        texto= "URL ingresada con éxito"
+        texto= "URL ingresada correctamente"
         color= "green"
         banderas[0]= 1
     
@@ -78,7 +78,6 @@ def DescargarVideo():
     url= ytEntry.get()
 
     if len(url) > 1:
-        ytError.config(text= "")
         yt= YouTube(url)
 
         if eleccion== elec[0] or eleccion== elec[2]:
@@ -99,7 +98,7 @@ def DescargarVideo():
         print(newFolderNameIn)
         os.remove(newFolderNameIn)
 
-    ytError.config(text= "Descarga completada", fg= "green")
+    completeLabel.config(text= "Descarga completada", fg= "green")
 
 def VideoAudioConverter():
     global folderName, fileName
@@ -182,5 +181,9 @@ ytElec.grid()
 # Botón descargar video/audio
 downBot= tk.Button(raiz, text= "Descargar", width= 10, bg= "#C8C1BF", fg= "white", state= "disabled", takefocus= False, command= DescargarVideo)
 downBot.grid()
+
+#Label descarga completada
+completeLabel= tk.Label(raiz, text= "", font= ("jost", 20))
+completeLabel.grid()
 
 raiz.mainloop()
