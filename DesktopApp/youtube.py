@@ -1,6 +1,6 @@
 try:
     import os
-    os.environ["IMAGEIO_FFMPEG_EXE"]= "/usr/bin/ffmpeg"
+    #os.environ["IMAGEIO_FFMPEG_EXE"]= "/usr/bin/ffmpeg"
     import time
     import sys
     import platform
@@ -12,12 +12,19 @@ try:
 except ImportError as eImp:
     print(f"Ocurrió el siguiente error de importación: {eImp}")
 
+banderas= [0, 0]#URL, Ruta guardar
 folderName= ""
 fileName= ""
 
 def resource_path(relative_path):
     base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
     return os.path.join(base_path, relative_path)
+
+def desbloqBoton():
+    if ((banderas[0]== 1)and(banderas[1]== 1)):
+        downBot.config(state= "normal", bg= "red")
+    else:
+        downBot.config(state= "disabled", bg= "#C8C1BF")
 
 def commandSOShell():
     sistema= platform.system()
@@ -33,14 +40,19 @@ def cambiarLabelTrue(*args):
     if url!= "" and "https://www.youtube.com/" in url:
         texto= "URL ingresada con éxito"
         color= "green"
+        banderas[0]= 1
     
     elif (("https://www.youtube.com/" not in url) and url!= ""):
         texto= "Ingresa una URL válida"
         color= "red"
+        banderas[0]= 0
 
     elif url== "":
         texto= "Ingresa la URL del video"
         color= "red"
+        banderas[0]= 0
+
+    desbloqBoton()
     
     return ytError.config(text= texto, fg= color, font= ("jost", 15))
 
@@ -49,9 +61,16 @@ def abrirRuta():
 
     folderName= filedialog.askdirectory()
     if len(folderName) > 1:
-        rutaError.config(text= folderName, fg= "green")
+        texto= folderName
+        color= "green"
+        banderas[1]= 1
     else:
-        rutaError.config(text= "Por favor elije una ruta", fg= "red")
+        texto= "Por favor elije una ruta"
+        color= "red"
+        banderas[1]= 0
+
+    desbloqBoton()
+    rutaError.config(text= texto, fg= color)
 
 def DescargarVideo():
     global fileName
@@ -134,7 +153,7 @@ ytEntry.focus()
 ytEntryText.trace_add("write", cambiarLabelTrue)
 
 # Error mensaje
-ytError= tk.Label(raiz, text= "Ingresa ruta", fg= "red", font= ("jost", 15))
+ytError= tk.Label(raiz, text= "Ingresa URL del video", fg= "red", font= ("jost", 15))
 ytError.grid()
 
 # Etiqueta de solicitación de ruta donde guardar archivo.
@@ -146,7 +165,7 @@ saveEntry= tk.Button(raiz, width= 10, bg= "red", fg= "white", text= "Ruta", take
 saveEntry.grid()
 
 # Error de ruta
-rutaError= tk.Label(raiz, text= "Error en la ruta", fg= "red", font= ("jost", 15))
+rutaError= tk.Label(raiz, text= "Selecciona una ruta", fg= "red", font= ("jost", 15))
 rutaError.grid()
 
 # Resolución de descarga
