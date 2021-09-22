@@ -20,6 +20,9 @@ and yes, it works also for very long videos of one hour!!!.
 The desktop application will be developed with tkinter, so you can download the application in the part of releases ready to be executed in your 
 computer without the neccesity to download python. You just need to download the exe file and its going to be ready to be downloaded.
 <br>
+ITS IMPORTANT TO MENTION THAT FOR NOW BECAUSE THE MOVIEPY LIBRARY DOESNT WORK FINE WITH PYINSTALLER THERE IS NOT GOING TO BE A EXE FILE FOR NOW 
+JUST UNTIL THIS BUG IS FIXED BY THE CREATOR OF MOVIEPY LIBRARY. MEANWHILE YOU CAN TRY BY YOURSELF AND PLEASE IF YOU HAVE SUCESS TELL WHAT YOU DO.
+<br>
 The command in order to create the exe file with pyinstaller is (Please check firts the considerations in Development mode and Production mode):
 ```
 pyinstaller --noconfirm --onefile --windowed --add-data "C:/Users/Diego/AppData/Local/Programs/Python/Python38-32/Lib/site-packages/moviepy;moviepy/" --add-data "./descargaryt.ico;." --name "ytDownloader" --icon "./descargaryt.ico" "./youtube.py"
