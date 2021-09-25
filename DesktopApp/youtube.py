@@ -4,11 +4,11 @@ try:
     import time
     import sys
     import platform
+    import webbrowser
     import tkinter as tk
     import moviepy.editor as mp
     from pytube import YouTube
-    from tkinter import ttk
-    from tkinter import filedialog
+    from tkinter import ttk, filedialog, messagebox
 except ImportError as eImp:
     print(f"Ocurrió el siguiente error de importación: {eImp}")
 
@@ -25,6 +25,9 @@ def desbloqBoton():
         downBot.config(state= "normal", bg= "red")
     else:
         downBot.config(state= "disabled", bg= "#C8C1BF")
+
+def repoGit():
+    webbrowser.open("https://github.com/dmtzs/DownYoutube")
 
 def commandSOShell():
     sistema= platform.system()
@@ -53,7 +56,6 @@ def cambiarLabelTrue(*args):
         banderas[0]= 0
 
     desbloqBoton()
-    completeLabel.config(text= "")
     
     return ytError.config(text= texto, fg= color, font= ("jost", 15))
 
@@ -71,7 +73,6 @@ def abrirRuta():
         banderas[1]= 0
     
     desbloqBoton()
-    completeLabel.config(text= "")
     rutaError.config(text= texto, fg= color)
 
 def DescargarVideo():
@@ -100,7 +101,8 @@ def DescargarVideo():
         print(newFolderNameIn)
         os.remove(newFolderNameIn)
 
-    completeLabel.config(text= "Descarga completada", fg= "green")
+    # Download complete pop up
+    messagebox.showinfo("Alert", "Descarga completada")
 
 def VideoAudioConverter():
     global folderName, fileName
@@ -133,8 +135,8 @@ raiz.iconbitmap(iconImage)
 screenWidth = raiz.winfo_screenwidth()# Ancho del área de visualización
 screenHeight = raiz.winfo_screenheight()# Alto del área de visualización
 if sis== "Windows":
-    width= 400
-    height= 450
+    width= 500
+    height= 550
 else:
     width= 1000
     height= 1050
@@ -142,50 +144,58 @@ left = (screenWidth - width) / 2
 top = (screenHeight - height) / 2
 raiz.geometry(f"{int(width)}x{int(height)}+{int(left)}+{int(top)}")
 
-# Label de enlace youtube
-ytdlabel= tk.Label(raiz, text= "Ingresa la URL del video", font= ("jost", 15))
-ytdlabel.grid()
+#Label title of the application
+titleLabel= tk.Label(raiz, fg= "red", text= "Youtube downloader", font= ("jost", 25))
+titleLabel.place(x= 102, y= 5)
 
-# Caja de entrada de texto
+# Label youtube link
+ytdlabel= tk.Label(raiz, text= "Ingresa la URL del video:", font= ("jost", 15))
+ytdlabel.place(x= 135, y= 58)
+
+# Entry box
 ytEntryText= tk.StringVar()
-ytEntry= tk.Entry(raiz, width= 50, textvariable= ytEntryText)
-ytEntry.grid()
+ytEntry= tk.Entry(raiz, width= 79, textvariable= ytEntryText)
+ytEntry.place(x= 10, y= 100)
 ytEntry.focus()
 ytEntryText.trace_add("write", cambiarLabelTrue)
 
-# Error mensaje
-ytError= tk.Label(raiz, text= "Ingresa URL del video", fg= "red", font= ("jost", 15))
-ytError.grid()
+# Error message
+ytError= tk.Label(raiz, text= "", fg= "red", font= ("jost", 11))
+ytError.place(x= 120, y= 120)
 
-# Etiqueta de solicitación de ruta donde guardar archivo.
-saveLabel= tk.Label(raiz, text= "Guarda el video", font= ("jost", 15))
-saveLabel.grid()
+# Label for rtequest the path in which the video or mp3 file will be stored
+saveLabel= tk.Label(raiz, text= "Guarda el video:", font= ("jost", 15))
+saveLabel.place(x= 170, y= 160)
 
-# Botón para guardar archivo
+# Button for keep the file
 saveEntry= tk.Button(raiz, width= 10, bg= "red", fg= "white", text= "Ruta", takefocus= False, command= abrirRuta)
-saveEntry.grid()
+saveEntry.place(x= 10, y= 190)
 
-# Error de ruta
-rutaError= tk.Label(raiz, text= "Selecciona una ruta", fg= "red", font= ("jost", 15))
-rutaError.grid()
+# Path error
+rutaError= tk.Label(raiz, text= "Selecciona una ruta", fg= "red", font= ("jost", 8))
+rutaError.place(x= 90, y= 193)
 
-# Resolución de descarga
-ytRes= tk.Label(raiz, text= "Selecciona calidad", font= ("jost", 15))
-ytRes.grid()
+# Download resolution
+ytRes= tk.Label(raiz, text= "Selecciona calidad de video o solo audio:", font= ("jost", 15))
+ytRes.place(x= 10, y= 230)
 
-# Combobox de opciones
+# Combobox of options
 elec= ["Alta definición", "Baja definición", "Solo audio"]
 valElec= tk.StringVar()
 valElec.set(elec[0])
-ytElec= ttk.Combobox(raiz, values= elec, state= "readonly", textvariable= valElec)
-ytElec.grid()
+ytElec= ttk.Combobox(raiz, values= elec, state= "readonly", textvariable= valElec, width= 15)
+ytElec.place(x= 380, y= 235)
 
-# Botón descargar video/audio
+# Video/audio download button
 downBot= tk.Button(raiz, text= "Descargar", width= 10, bg= "#C8C1BF", fg= "white", state= "disabled", takefocus= False, command= DescargarVideo)
-downBot.grid()
+downBot.place(x= 200, y= 270)
 
-#Label descarga completada
-completeLabel= tk.Label(raiz, text= "", font= ("jost", 20))
-completeLabel.grid()
+# Label to github repository
+labelGit= tk.Label(raiz, text= "Repositorio del programa:", font= ("jost", 10))
+labelGit.place(x= 130, y= 525)
+
+# Button to repository
+butGit= tk.Button(raiz, width= 10, bg= "red", fg= "white", text= "Repositorio", takefocus= False, command= repoGit)
+butGit.place(x= 290, y= 523)
 
 raiz.mainloop()
