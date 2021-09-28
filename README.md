@@ -25,7 +25,7 @@ JUST UNTIL THIS BUG IS FIXED BY THE CREATOR OF MOVIEPY LIBRARY. MEANWHILE YOU CA
 <br>
 The command in order to create the exe file with pyinstaller is (Please check firts the considerations in Development mode and Production mode):
 ```
-pyinstaller --noconfirm --onefile --windowed --add-data "C:/Users/Diego/AppData/Local/Programs/Python/Python38-32/Lib/site-packages/moviepy;moviepy/" --add-data "./descargaryt.ico;." --name "ytDownloader" --icon "./descargaryt.ico" "./youtube.py"
+pyinstaller --noconfirm --onefile --windowed --add-data "D:/github projects/DownYoutube/DesktopApp/moviepy;moviepy/" --add-data "./descargaryt.ico;." --name "ytDownloader" --icon "./descargaryt.ico" "./youtube.py"
 ```
 <br>
 If we want to create the executable file using pyinstaller in this specific case that we use pyinstaller for the creation of the same exe file we 

@@ -2,5 +2,3 @@ pytube
 pyinstaller
 moviepy
 wget
-pillow
-qrcode
