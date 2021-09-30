@@ -1,5 +1,5 @@
 __pycache__
-ytDownloader.spec
+*.spec
 build
 pruebas
 moviepyMod
