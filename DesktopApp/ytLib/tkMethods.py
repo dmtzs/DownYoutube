@@ -12,14 +12,8 @@ try:
 except ImportError as eImp:
     print(f"Ocurrió el siguiente error de importación: {eImp}")
 
-class tkClass():
-    banderas= [0, 0]#URL, path to keep
-    fileIco= "descargaryt.ico"
-    titleApp= "Descargar videos youtube"
-    labelTitleApp= "Youtube downloader"
-    folderName= ""
-    fileName= ""
-
+# -----------------Other methods-----------------
+class extraMethods():
     def resource_path(self, relative_path):
         base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
         return os.path.join(base_path, relative_path)
@@ -31,6 +25,15 @@ class tkClass():
             return "cls", sistema
         else:
             return "clear", sistema
+
+# -----------------Tkinter widgets methods-----------------
+class tkClass(extraMethods):
+    banderas= [0, 0]#URL, path to keep
+    fileIco= "descargaryt.ico"
+    titleApp= "Descargar videos youtube"
+    labelTitleApp= "Youtube downloader"
+    folderName= ""
+    fileName= ""
     
 # -----------------Main window and their components-----------------
     def GUI(self):
