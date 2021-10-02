@@ -234,7 +234,6 @@ class tkClass(extraMethods):
         butGit.place(x= 290, y= 523)
 
         # Thumbnail
-        # Ima= Image.open("./tthumbnail.jpg")
         # #Ima= Image.open(self.thumbOutputDirectory)
         # Ima= Ima.resize((200, 150), Image.ANTIALIAS)# height, width
         # renderIma= ImageTk.PhotoImage(Ima)
