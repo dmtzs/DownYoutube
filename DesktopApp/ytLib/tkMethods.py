@@ -237,6 +237,7 @@ class tkClass(extraMethods):
         # #Ima= Image.open(self.thumbOutputDirectory)
         # Ima= Ima.resize((200, 150), Image.ANTIALIAS)# height, width
         # renderIma= ImageTk.PhotoImage(Ima)
+        # Ima.close()
 
         # ImaLabel= tk.Label(raiz, image= renderIma)
         # ImaLabel.place(x= 20, y= 320)
