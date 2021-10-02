@@ -2,12 +2,14 @@ try:
     import os
     #os.environ["IMAGEIO_FFMPEG_EXE"]= "/usr/bin/ffmpeg"
     import sys
+    import wget
     import time
     import platform
     import webbrowser
     import tkinter as tk
-    from pytube import YouTube
     import moviepy.editor as mp
+    from pytube import YouTube
+    from PIL import Image, ImageTk
     from tkinter import ttk, filedialog, messagebox
 except ImportError as eImp:
     print(f"Ocurrió el siguiente error de importación: {eImp}")
@@ -26,6 +28,22 @@ class extraMethods():
         else:
             return "clear", sistema
 
+    def thumbnail(self, urlThumb):
+        ytThumb= YouTube(urlThumb)
+
+        thumb= ytThumb.thumbnail_url
+        thumbTitle= ytThumb.title
+        thumbAuthor= ytThumb.author
+        thumbDesc= ytThumb.description
+
+        _, ext= os.path.splitext(thumb)
+
+        outputDirectory= f"./tthumbnail{ext}"
+
+        wget.download(thumb, out= outputDirectory)
+
+        return outputDirectory, thumbTitle, thumbAuthor, thumbDesc
+
 # -----------------Tkinter widgets methods-----------------
 class tkClass(extraMethods):
     banderas= [0, 0]#URL, path to keep
@@ -34,6 +52,10 @@ class tkClass(extraMethods):
     labelTitleApp= "Youtube downloader"
     folderName= ""
     fileName= ""
+    thumbTitle= ""
+    thumbAuthor= ""
+    thumbDesc= ""
+    thumbOutputDirectory= ""
     
 # -----------------Main window and their components-----------------
     def GUI(self):
@@ -53,6 +75,7 @@ class tkClass(extraMethods):
                 texto= "URL ingresada correctamente"
                 color= "green"
                 self.banderas[0]= 1
+                self.thumbOutputDirectory, self.thumbTitle, self.thumbAuthor, self.thumbDesc= self.thumbnail(url)
             
             elif (("https://www.youtube.com/" not in url) and url!= ""):
                 texto= "Ingresa una URL válida"
@@ -209,5 +232,21 @@ class tkClass(extraMethods):
         # Button to repository
         butGit= tk.Button(raiz, width= 10, bg= "red", fg= "white", text= "Repositorio", takefocus= False, command= repoGit)
         butGit.place(x= 290, y= 523)
+
+        # Thumbnail
+        # Ima= Image.open("./tthumbnail.jpg")
+        # #Ima= Image.open(self.thumbOutputDirectory)
+        # Ima= Ima.resize((200, 150), Image.ANTIALIAS)# height, width
+        # renderIma= ImageTk.PhotoImage(Ima)
+
+        # ImaLabel= tk.Label(raiz, image= renderIma)
+        # ImaLabel.place(x= 20, y= 320)
+
+        # Thumbnail info
+        # thumbTitleLabel= tk.Label(raiz, text= self.thumbTitle, font= ("jost", 10))
+        # thumbAuthorLabel= tk.Label(raiz, text= self.thumbAuthor, font= ("jost", 10))
+        # thumbDescLabel= tk.Label(raiz, text= self.thumbDesc, font= ("jost", 10))
+        
+        # thumbTitleLabel.place(x= 200, y=560)
 
         raiz.mainloop()
