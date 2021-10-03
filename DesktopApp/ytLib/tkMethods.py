@@ -42,6 +42,9 @@ class extraMethods():
 
         wget.download(thumb, out= outputDirectory)
 
+        #Tal vez no sea necesario el return debido a que tal vez sea mejor directamente en los datos modificar el label con estos datos
+        #De igual manera los atributos definidos para esto se volverían innecesarios, probar eso a ver si funciona que si debería.
+
         return outputDirectory, thumbTitle, thumbAuthor, thumbDesc
 
 # -----------------Tkinter widgets methods-----------------
