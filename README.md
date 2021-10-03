@@ -7,7 +7,15 @@
 <p align="center">
     <img src="https://img.shields.io/github/last-commit/dmtzs/DownYoutube">
     <img src="https://img.shields.io/github/issues/dmtzs/DownYoutube?label=issues">
+    <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/dmtzs/DownYoutube">
     <img src="https://img.shields.io/github/stars/dmtzs/DownYoutube">
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/github/languages/code-size/dmtzs/DownYoutube">
+  <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/dmtzs/DownYoutube">
+  <img alt="Lines of code" src="https://img.shields.io/tokei/lines/github/dmtzs/DownYoutube?label=total%20lines%20in%20repo">
+  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/dmtzs/DownYoutube">
 </p>
 
 ## The project
