@@ -58,6 +58,14 @@ class tkClass(extraMethods):
     
 # -----------------Main window and their components-----------------
     def GUI(self):
+        def salir():
+            try:
+                os.remove("./tthumbnail.jpg")
+            except:
+                pass
+            finally:
+                raiz.destroy()
+
         def desbloqBoton():
             if ((self.banderas[0]== 1)and(self.banderas[1]== 1)):
                 downBot.config(state= "normal", bg= "red")
@@ -67,7 +75,7 @@ class tkClass(extraMethods):
         def repoGit():
             webbrowser.open("https://github.com/dmtzs/DownYoutube")
 
-        def configImaLabel(thumbTitle, thumbAuthor, thumbDesc):
+        def configImaLabelShow(thumbTitle, thumbAuthor, thumbDesc):
             # Thumbnail
             Ima= Image.open("./tthumbnail.jpg")
             Ima= Ima.resize((200, 150), Image.ANTIALIAS)# height, width
@@ -81,6 +89,19 @@ class tkClass(extraMethods):
             thumbAuthorLabel.config(text= thumbAuthor)
             thumbDescLabel.config(text= thumbDesc)
 
+        def configImaLabelDel():
+            try:
+                os.remove("./tthumbnail.jpg")
+            except:
+                pass
+            finally:
+                ImaLabel.configure(image= None)
+                ImaLabel.image= None
+
+                thumbTitleLabel.config(text= "")
+                thumbAuthorLabel.config(text= "")
+                thumbDescLabel.config(text= "")
+
         def cambiarLabelTrue(*args):
             url= ytEntry.get()
             
@@ -90,17 +111,21 @@ class tkClass(extraMethods):
                 self.banderas[0]= 1
                 thumbTitle, thumbAuthor, thumbDesc= self.thumbnail(url)
 
-                configImaLabel(thumbTitle, thumbAuthor, thumbDesc)
+                configImaLabelShow(thumbTitle, thumbAuthor, thumbDesc)
             
             elif (("https://www.youtube.com/" not in url) and url!= ""):
                 texto= "Ingresa una URL válida"
                 color= "red"
                 self.banderas[0]= 0
 
+                configImaLabelDel()
+
             elif url== "":
                 texto= "Ingresa la URL del video"
                 color= "red"
                 self.banderas[0]= 0
+                
+                configImaLabelDel()
 
             desbloqBoton()
             
@@ -260,5 +285,7 @@ class tkClass(extraMethods):
         thumbTitleLabel.place(x= 225, y=330)
         thumbAuthorLabel.place(x= 225, y= 360)
         thumbDescLabel.place(x= 225, y= 390)
+
+        raiz.protocol("WM_DELETE_WINDOW", salir)
 
         raiz.mainloop()
