@@ -27,7 +27,7 @@ and yes, it works also for very long videos of one hour!!!.
 ## Desktop application
 The desktop application will be developed with tkinter, so you can download the application in the part of releases ready to be executed in your 
 computer without the neccesity to download python. You just need to download the exe file and its going to be ready to be downloaded.
-<br>
+<br><br>
 ITS IMPORTANT TO MENTION THAT FOR NOW BECAUSE THE MOVIEPY LIBRARY DOESNT WORK FINE WITH PYINSTALLER THERE IS NOT GOING TO BE A EXE FILE FOR NOW 
 JUST UNTIL THIS BUG IS FIXED BY THE CREATOR OF MOVIEPY LIBRARY. MEANWHILE YOU CAN TRY BY YOURSELF AND PLEASE IF YOU HAVE SUCESS TELL WHAT YOU DO.
 <br>
