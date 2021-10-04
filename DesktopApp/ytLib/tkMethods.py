@@ -45,7 +45,7 @@ class extraMethods():
         #Tal vez no sea necesario el return debido a que tal vez sea mejor directamente en los datos modificar el label con estos datos
         #De igual manera los atributos definidos para esto se volverían innecesarios, probar eso a ver si funciona que si debería.
 
-        return outputDirectory, thumbTitle, thumbAuthor, thumbDesc
+        return thumbTitle, thumbAuthor, thumbDesc
 
 # -----------------Tkinter widgets methods-----------------
 class tkClass(extraMethods):
@@ -55,10 +55,6 @@ class tkClass(extraMethods):
     labelTitleApp= "Youtube downloader"
     folderName= ""
     fileName= ""
-    thumbTitle= ""
-    thumbAuthor= ""
-    thumbDesc= ""
-    thumbOutputDirectory= ""
     
 # -----------------Main window and their components-----------------
     def GUI(self):
@@ -71,6 +67,20 @@ class tkClass(extraMethods):
         def repoGit():
             webbrowser.open("https://github.com/dmtzs/DownYoutube")
 
+        def configImaLabel(thumbTitle, thumbAuthor, thumbDesc):
+            # Thumbnail
+            Ima= Image.open("./tthumbnail.jpg")
+            Ima= Ima.resize((200, 150), Image.ANTIALIAS)# height, width
+            renderIma= ImageTk.PhotoImage(Ima)
+            Ima.close()
+
+            ImaLabel.configure(image= renderIma)
+            ImaLabel.image= renderIma
+
+            thumbTitleLabel.config(text= thumbTitle)
+            thumbAuthorLabel.config(text= thumbAuthor)
+            thumbDescLabel.config(text= thumbDesc)
+
         def cambiarLabelTrue(*args):
             url= ytEntry.get()
             
@@ -78,7 +88,9 @@ class tkClass(extraMethods):
                 texto= "URL ingresada correctamente"
                 color= "green"
                 self.banderas[0]= 1
-                self.thumbOutputDirectory, self.thumbTitle, self.thumbAuthor, self.thumbDesc= self.thumbnail(url)
+                thumbTitle, thumbAuthor, thumbDesc= self.thumbnail(url)
+
+                configImaLabel(thumbTitle, thumbAuthor, thumbDesc)
             
             elif (("https://www.youtube.com/" not in url) and url!= ""):
                 texto= "Ingresa una URL válida"
@@ -236,20 +248,22 @@ class tkClass(extraMethods):
         butGit= tk.Button(raiz, width= 10, bg= "red", fg= "white", text= "Repositorio", takefocus= False, command= repoGit)
         butGit.place(x= 290, y= 523)
 
-        # Thumbnail
-        # #Ima= Image.open(self.thumbOutputDirectory)
+        # Label for showing the thumbnail
+        # Ima= Image.open("./tthumbnail.jpg")
         # Ima= Ima.resize((200, 150), Image.ANTIALIAS)# height, width
         # renderIma= ImageTk.PhotoImage(Ima)
         # Ima.close()
 
-        # ImaLabel= tk.Label(raiz, image= renderIma)
-        # ImaLabel.place(x= 20, y= 320)
+        ImaLabel= tk.Label(raiz, image= None)
+        ImaLabel.place(x= 20, y= 320)
 
-        # Thumbnail info
-        # thumbTitleLabel= tk.Label(raiz, text= self.thumbTitle, font= ("jost", 10))
-        # thumbAuthorLabel= tk.Label(raiz, text= self.thumbAuthor, font= ("jost", 10))
-        # thumbDescLabel= tk.Label(raiz, text= self.thumbDesc, font= ("jost", 10))
+        # Video info
+        thumbTitleLabel= tk.Label(raiz, text= "", font= ("jost", 10))
+        thumbAuthorLabel= tk.Label(raiz, text= "", font= ("jost", 10))
+        thumbDescLabel= tk.Label(raiz, text= "", font= ("jost", 10))
         
-        # thumbTitleLabel.place(x= 200, y=560)
+        thumbTitleLabel.place(x= 225, y=330)
+        thumbAuthorLabel.place(x= 225, y= 360)
+        thumbDescLabel.place(x= 225, y= 390)
 
         raiz.mainloop()
