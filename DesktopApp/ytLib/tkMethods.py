@@ -249,11 +249,6 @@ class tkClass(extraMethods):
         butGit.place(x= 290, y= 523)
 
         # Label for showing the thumbnail
-        # Ima= Image.open("./tthumbnail.jpg")
-        # Ima= Ima.resize((200, 150), Image.ANTIALIAS)# height, width
-        # renderIma= ImageTk.PhotoImage(Ima)
-        # Ima.close()
-
         ImaLabel= tk.Label(raiz, image= None)
         ImaLabel.place(x= 20, y= 320)
 
