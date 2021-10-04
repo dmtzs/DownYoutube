@@ -5,3 +5,4 @@ build
 pruebas
 moviepyMod
 dist
+*.zip
