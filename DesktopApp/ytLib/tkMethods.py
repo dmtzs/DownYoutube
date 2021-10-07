@@ -282,7 +282,7 @@ class tkClass(extraMethods):
         thumbAuthorLabel= tk.Label(raiz, text= "", font= ("jost", 10))
         thumbDescLabel= tk.Label(raiz, text= "", font= ("jost", 10), wraplength= 300)
         
-        thumbTitleLabel.place(x= 225, y=330)
+        thumbTitleLabel.place(x= 225, y= 330)
         thumbAuthorLabel.place(x= 225, y= 370)
         thumbDescLabel.place(x= 225, y= 400)
 
