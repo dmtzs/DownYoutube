@@ -57,8 +57,7 @@ os.environ["IMAGEIO_FFMPEG_EXE"]= "/usr/bin/ffmpeg"
 ``
 
 ## Web application
-This application will be developed with the time and will be hosted with the time too so you will be able to access to the web application as a normal 
-web application through your internet browser of your preferences and will have the same functionality.
+This application will be developed with the time and will be hosted in a server only if I receive the enough funds to maintain that server.
 
 # Enjoying this Youtube downloader app? Consider a donation!!
 This project is an opensource and free project. That doesn't mean we don't need any money.
