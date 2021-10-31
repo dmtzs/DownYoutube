@@ -202,11 +202,15 @@ class tkClass(extraMethods):
         raiz.title(self.titleApp)
         raiz.columnconfigure(0, weight= 1)
         raiz.resizable(width= False, height= False)
-        try:
-            iconImage= self.resource_path(self.fileIco)
-            raiz.iconbitmap(iconImage)
-        except:
-            raiz.iconbitmap(self.fileIco)
+        if sis== "Windows":
+            try:
+                iconImage= self.resource_path(self.fileIco)
+                raiz.iconbitmap(iconImage)
+            except:
+                raiz.iconbitmap(self.fileIco)
+        else:
+            pass
+        
         screenWidth = raiz.winfo_screenwidth()# Ancho del área de visualización
         screenHeight = raiz.winfo_screenheight()# Alto del área de visualización
         if sis== "Windows":
