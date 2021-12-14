@@ -7,9 +7,10 @@ try:
     import platform
     import webbrowser
     import tkinter as tk
-    import moviepy.editor as mp
     from pytube import YouTube
+    import moviepy.editor as mp
     from PIL import Image, ImageTk
+    from tkinter.constants import CENTER, LEFT, RIGHT
     from tkinter import ttk, filedialog, messagebox
 except ImportError as eImp:
     print(f"Ocurrió el siguiente error de importación: {eImp}")
@@ -221,8 +222,8 @@ class tkClass(extraMethods):
         screenWidth = raiz.winfo_screenwidth()# Ancho del área de visualización
         screenHeight = raiz.winfo_screenheight()# Alto del área de visualización
         if sis== "Windows":
-            width= 550
-            height= 600
+            width= 1000
+            height= 1050
         else:
             width= 1000
             height= 1050
@@ -232,26 +233,26 @@ class tkClass(extraMethods):
 
         #Label title of the application
         titleLabel= tk.Label(raiz, fg= "red", text= self.labelTitleApp, font= ("jost", 25))
-        titleLabel.place(x= 102, y= 5)
+        titleLabel.place(relx= 0.5, y= 25, anchor=CENTER)
 
         # Label youtube link
         ytdlabel= tk.Label(raiz, text= "Ingresa la URL del video:", font= ("jost", 15))
-        ytdlabel.place(x= 135, y= 58)
+        ytdlabel.place(relx= 0.5, y= 58, anchor=CENTER)
 
         # Entry box
         ytEntryText= tk.StringVar()
         ytEntry= tk.Entry(raiz, width= 79, textvariable= ytEntryText)
-        ytEntry.place(x= 10, y= 100)
+        ytEntry.place(relx= 0.5, y= 100, anchor=CENTER)
         ytEntry.focus()
         ytEntryText.trace_add("write", cambiarLabelTrue)
 
         # Error message
         ytError= tk.Label(raiz, text= "", fg= "red", font= ("jost", 11))
-        ytError.place(x= 120, y= 120)
+        ytError.place(relx= 0.5, y= 130, anchor=CENTER)
 
         # Label for rtequest the path in which the video or mp3 file will be stored
         saveLabel= tk.Label(raiz, text= "Guarda el video:", font= ("jost", 15))
-        saveLabel.place(x= 170, y= 160)
+        saveLabel.place(relx= 0.5, y= 170, anchor=CENTER)
 
         # Button for keep the file
         saveEntry= tk.Button(raiz, width= 10, bg= "red", fg= "white", text= "Ruta", takefocus= False, command= abrirRuta)
@@ -263,35 +264,39 @@ class tkClass(extraMethods):
 
         # Download resolution
         ytRes= tk.Label(raiz, text= "Selecciona calidad de video o solo audio:", font= ("jost", 15))
-        ytRes.place(x= 10, y= 230)
+        ytRes.place(x= 10, y= 245)
 
         # Combobox of options
         elec= ["Alta definición", "Baja definición", "Solo audio"]
         valElec= tk.StringVar()
         valElec.set(elec[0])
         ytElec= ttk.Combobox(raiz, values= elec, state= "readonly", textvariable= valElec, width= 15)
-        ytElec.place(x= 380, y= 235)
+        ytElec.place(x= 380, y= 250)
 
         # Video/audio download button
         downBot= tk.Button(raiz, text= "Descargar", width= 10, bg= "#C8C1BF", fg= "white", state= "disabled", takefocus= False, command= DescargarVideo)
-        downBot.place(x= 200, y= 270)
+        downBot.place(relx= 0.5, y= 305, anchor=CENTER)
+
+        # Frame for the github repository actions
+        frameGithub = tk.Frame(raiz)
+        frameGithub.place(relx= 0.5, y= 1030, anchor=CENTER)
 
         # Label to github repository
-        labelGit= tk.Label(raiz, text= "Repositorio del programa:", font= ("jost", 10))
-        labelGit.place(x= 130, y= 525)
+        labelGit= tk.Label(frameGithub, text= "Repositorio del programa:", font= ("jost", 10))
+        labelGit.pack(side=LEFT)
 
         # Button to repository
-        butGit= tk.Button(raiz, width= 10, bg= "red", fg= "white", text= "Repositorio", takefocus= False, command= repoGit)
-        butGit.place(x= 290, y= 523)
+        butGit= tk.Button(frameGithub, width= 10, bg= "red", fg= "white", text= "Repositorio", takefocus= False, command= repoGit)
+        butGit.pack(side=RIGHT)
 
         # Label for showing the thumbnail
         ImaLabel= tk.Label(raiz, image= None)
         ImaLabel.place(x= 20, y= 320)
 
         # Video info
-        thumbTitleLabel= tk.Label(raiz, text= "", font= ("jost", 10), wraplength= 300)
+        thumbTitleLabel= tk.Label(raiz, text= "", font= ("jost", 10), wraplength= 750)
         thumbAuthorLabel= tk.Label(raiz, text= "", font= ("jost", 10))
-        thumbDescLabel= tk.Label(raiz, text= "", font= ("jost", 10), wraplength= 300)
+        thumbDescLabel= tk.Label(raiz, text= "", font= ("jost", 10), wraplength= 750)
         
         thumbTitleLabel.place(x= 225, y= 330)
         thumbAuthorLabel.place(x= 225, y= 370)
