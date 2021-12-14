@@ -36,7 +36,8 @@ class extraMethods():
         thumbAuthor= ytThumb.author
         thumbDesc= ytThumb.description
 
-        _, ext= os.path.splitext(thumb)
+        trash, ext= os.path.splitext(thumb)
+        del trash
         tama= len(ext)
 
         if tama > 4:
