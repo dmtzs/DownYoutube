@@ -37,6 +37,12 @@ class extraMethods():
         thumbDesc= ytThumb.description
 
         _, ext= os.path.splitext(thumb)
+        tama= len(ext)
+
+        if tama > 4:
+            tama-= 4
+            ext = ext[:-tama]
+        
 
         outputDirectory= f"./tthumbnail{ext}"
 
@@ -214,8 +220,8 @@ class tkClass(extraMethods):
         screenWidth = raiz.winfo_screenwidth()# Ancho del área de visualización
         screenHeight = raiz.winfo_screenheight()# Alto del área de visualización
         if sis== "Windows":
-            width= 500
-            height= 550
+            width= 550
+            height= 600
         else:
             width= 1000
             height= 1050
