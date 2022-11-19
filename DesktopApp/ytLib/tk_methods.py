@@ -16,12 +16,12 @@ except ImportError as eImp:
     print(f"Ocurrió el siguiente error de importación: {eImp}")
 
 # -----------------Other methods-----------------
-class extraMethods():
-    def resource_path(self, relative_path):
+class ExtraMethods():
+    def resource_path(self, relative_path: str) -> str:
         base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
         return os.path.join(base_path, relative_path)
 
-    def commandSOShell(self):
+    def command_so_shell(self) -> tuple[str, str]:
         sistema= platform.system()
 
         if sistema== "Windows":
@@ -29,7 +29,7 @@ class extraMethods():
         else:
             return "clear", sistema
 
-    def thumbnail(self, urlThumb):
+    def thumbnail(self, urlThumb: str) -> tuple[str, str, str]:
         ytThumb= YouTube(urlThumb)
 
         thumb= ytThumb.thumbnail_url
@@ -56,17 +56,17 @@ class extraMethods():
         return thumbTitle, thumbAuthor, thumbDesc
 
 # -----------------Tkinter widgets methods-----------------
-class tkClass(extraMethods):
-    banderas= [0, 0]#URL, path to keep
-    fileIco= "descargaryt.ico"
-    titleApp= "Descargar videos youtube"
-    labelTitleApp= "Youtube downloader"
-    folderName= ""
-    fileName= ""
+class TkClass(ExtraMethods):
+    banderas = [0, 0]#URL, path to keep
+    fileIco = "descargaryt.ico"
+    titleApp = "Descargar videos youtube"
+    labelTitleApp = "Youtube downloader"
+    folderName = ""
+    fileName = ""
     
 # -----------------Main window and their components-----------------
     def GUI(self):
-        def salir():
+        def salir() -> None:
             try:
                 os.remove("./tthumbnail.jpg")
             except:
@@ -74,16 +74,16 @@ class tkClass(extraMethods):
             finally:
                 raiz.destroy()
 
-        def desbloqBoton():
+        def desbloq_boton() -> None:
             if ((self.banderas[0]== 1)and(self.banderas[1]== 1)):
                 downBot.config(state= "normal", bg= "red")
             else:
                 downBot.config(state= "disabled", bg= "#C8C1BF")
 
-        def repoGit():
+        def repo_git() -> None:
             webbrowser.open("https://github.com/dmtzs/DownYoutube")
 
-        def configImaLabelShow(thumbTitle, thumbAuthor, thumbDesc):
+        def config_ima_label_show(thumbTitle: str, thumbAuthor: str, thumbDesc: str) -> None:
             # Thumbnail
             Ima= Image.open("./tthumbnail.jpg")
             Ima= Ima.resize((200, 150), Image.ANTIALIAS)# height, width
@@ -97,7 +97,7 @@ class tkClass(extraMethods):
             thumbAuthorLabel.config(text= thumbAuthor)
             thumbDescLabel.config(text= thumbDesc)
 
-        def configImaLabelDel():
+        def config_ima_label_del() -> None:
             try:
                 os.remove("./tthumbnail.jpg")
             except:
@@ -110,7 +110,7 @@ class tkClass(extraMethods):
                 thumbAuthorLabel.config(text= "")
                 thumbDescLabel.config(text= "")
 
-        def cambiarLabelTrue(*args):
+        def cambiar_label_true(*args) -> tk.Label:
             url= ytEntry.get()
             
             if url!= "" and "https://www.youtube.com/" in url:
@@ -119,27 +119,27 @@ class tkClass(extraMethods):
                 self.banderas[0]= 1
                 thumbTitle, thumbAuthor, thumbDesc= self.thumbnail(url)
 
-                configImaLabelShow(thumbTitle, thumbAuthor, thumbDesc)
+                config_ima_label_show(thumbTitle, thumbAuthor, thumbDesc)
             
             elif (("https://www.youtube.com/" not in url) and url!= ""):
                 texto= "Ingresa una URL válida"
                 color= "red"
                 self.banderas[0]= 0
 
-                configImaLabelDel()
+                config_ima_label_del()
 
             elif url== "":
                 texto= "Ingresa la URL del video"
                 color= "red"
                 self.banderas[0]= 0
                 
-                configImaLabelDel()
+                config_ima_label_del()
 
-            desbloqBoton()
+            desbloq_boton()
             
             return ytError.config(text= texto, fg= color, font= ("jost", 15))
 
-        def abrirRuta():
+        def abrir_ruta() -> None:
             global folderName
 
             folderName= filedialog.askdirectory()
@@ -152,10 +152,10 @@ class tkClass(extraMethods):
                 color= "red"
                 self.banderas[1]= 0
             
-            desbloqBoton()
+            desbloq_boton()
             rutaError.config(text= texto, fg= color)
 
-        def DescargarVideo():
+        def descargar_video() -> None:
             global fileName
             eleccion= ytElec.get()
             url= ytEntry.get()
@@ -176,7 +176,7 @@ class tkClass(extraMethods):
             fileName= yt.streams[0].title
             
             if eleccion== elec[2]:
-                newFolderNameIn= VideoAudioConverter()
+                newFolderNameIn= video_audio_converter()
                 time.sleep(2)
                 print(newFolderNameIn)
                 os.remove(newFolderNameIn)
@@ -184,7 +184,7 @@ class tkClass(extraMethods):
             # Download complete pop up
             messagebox.showinfo("Alert", "Descarga completada")
 
-        def VideoAudioConverter():
+        def video_audio_converter() -> str:
             global folderName, fileName
 
             expresiones= [f"{chr(92)}", "/", ":", "*", "?", f"{chr(34)}", "<", ">", f"{chr(124)}"]
@@ -204,13 +204,13 @@ class tkClass(extraMethods):
 
             return newFolderNameIn
 
-        raiz= tk.Tk()
-        comando, sis= self.commandSOShell()
+        raiz = tk.Tk()
+        comando, sis = self.command_so_shell()
         os.system(comando)
         raiz.title(self.titleApp)
         raiz.columnconfigure(0, weight= 1)
         raiz.resizable(width= False, height= False)
-        if sis== "Windows":
+        if sis == "Windows":
             try:
                 iconImage= self.resource_path(self.fileIco)
                 raiz.iconbitmap(iconImage)
@@ -244,7 +244,7 @@ class tkClass(extraMethods):
         ytEntry= tk.Entry(raiz, width= 79, textvariable= ytEntryText)
         ytEntry.place(relx= 0.5, y= 100, anchor=CENTER)
         ytEntry.focus()
-        ytEntryText.trace_add("write", cambiarLabelTrue)
+        ytEntryText.trace_add("write", cambiar_label_true)
 
         # Error message
         ytError= tk.Label(raiz, text= "", fg= "red", font= ("jost", 11))
@@ -255,7 +255,7 @@ class tkClass(extraMethods):
         saveLabel.place(relx= 0.5, y= 170, anchor=CENTER)
 
         # Button for keep the file
-        saveEntry= tk.Button(raiz, width= 10, bg= "red", fg= "white", text= "Ruta", takefocus= False, command= abrirRuta)
+        saveEntry= tk.Button(raiz, width= 10, bg= "red", fg= "white", text= "Ruta", takefocus= False, command= abrir_ruta)
         saveEntry.place(x= 10, y= 190)
 
         # Path error
@@ -274,7 +274,7 @@ class tkClass(extraMethods):
         ytElec.place(x= 380, y= 250)
 
         # Video/audio download button
-        downBot= tk.Button(raiz, text= "Descargar", width= 10, bg= "#C8C1BF", fg= "white", state= "disabled", takefocus= False, command= DescargarVideo)
+        downBot= tk.Button(raiz, text= "Descargar", width= 10, bg= "#C8C1BF", fg= "white", state= "disabled", takefocus= False, command= descargar_video)
         downBot.place(relx= 0.5, y= 305, anchor=CENTER)
 
         # Frame for the github repository actions
@@ -286,7 +286,7 @@ class tkClass(extraMethods):
         labelGit.pack(side=LEFT)
 
         # Button to repository
-        butGit= tk.Button(frameGithub, width= 10, bg= "red", fg= "white", text= "Repositorio", takefocus= False, command= repoGit)
+        butGit= tk.Button(frameGithub, width= 10, bg= "red", fg= "white", text= "Repositorio", takefocus= False, command= repo_git)
         butGit.pack(side=RIGHT)
 
         # Label for showing the thumbnail

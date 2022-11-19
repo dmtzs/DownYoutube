@@ -1,11 +1,11 @@
 try:
-    from ytLib import tkMethods
+    from ytLib import tk_methods
 except ImportError as eImp:
     print(f"Ocurrió el siguiente error de importación: {eImp}")
 
 if __name__== "__main__":
     try:
-        met= tkMethods.tkClass()
+        met= tk_methods.TkClass()
         met.GUI()
     except Exception as ex:
         print(f"Ocurrió el ERROR: {ex}")
