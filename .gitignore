@@ -6,3 +6,4 @@ pruebas
 moviepyMod
 dist
 *.zip
+venv/
